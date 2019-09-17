@@ -1,0 +1,15 @@
+[package]
+name = "test_chunks"
+version = "0.1.0"
+authors = ["Benjamin Heatwole <bheatwole@cwi-va.com>"]
+edition = "2018"
+
+[dependencies]
+bincode = "1.1.2"
+clap = "2.32.0"
+memmap = "0.7.0"
+rabin = { path = "../rabin" }
+regex = "1.1.2"
+serde = "1.0.89"
+serde_derive = "1.0.89"
+sha3 = "0.8.1"
