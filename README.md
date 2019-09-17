@@ -29,4 +29,31 @@ algorithm that also has the effect of randomizing the data so that we get an eve
 
 ## Fixed vs Variable
 The test_chunks application in this repository implements both fixed and variable chunking given a filesystem directory.
-You can run the application in both modes to see how the two methods compare. 
+You can run the application in both modes to see how the two methods compare.
+
+## Compiling and Running test_chunks
+The goal of this application is to scan a very large directory and determine how much memory would be needed to store
+the hash of every chunk. It also determines how many unique chunks are in the directory and if there would be any 
+collisions using a shortened hash to save on storage.
+
+### Compiling with Rust
+If you have Rust installed on your machine you can run:
+```
+git clone https://github.com/bheatwole/dedup.git
+cd dedup/test_chunks
+cargo run --release -- -d /some/directory/with/lots/of/data -o /an/empty/directory/to/hold/output/files -m 500M
+```
+
+### Compiling with Docker
+```
+git clone https://github.com/bheatwole/dedup.git
+cd dedup
+docker build -t dedup_test_chunks .
+docker run --rm -v /some/directory/with/lots/of/data:/data ecr.cwi.name/dedup_test_chunks -d /data -o /output -m 500m
+```
+
+### test_chunks Arguments
+- -d, --directory: The directory in which to start scanning all files.
+- -o, --output: The directory in which to store the output files of the application
+- -m, --memory: The number of bytes to use for storing hashes (i.e. 500k, 100m, 1G, etc). When this is exceeded, a file is written to /output and the hash table cleared for more data.
+- -f, --fixed: If set, a fixed size chunk of 4096 bytes will be used instead of the variable-size algorithm. Used to test the difference in performance and chunk quality.
