@@ -49,7 +49,7 @@ cargo run --release -- -d /some/directory/with/lots/of/data -o /an/empty/directo
 git clone https://github.com/bheatwole/dedup.git
 cd dedup
 docker build -t dedup_test_chunks .
-docker run --rm -v /some/directory/with/lots/of/data:/data ecr.cwi.name/dedup_test_chunks -d /data -o /output -m 500m
+docker run --rm -v /some/directory/with/lots/of/data:/data dedup_test_chunks -d /data -o /output -m 500m
 ```
 
 ### test_chunks Arguments
